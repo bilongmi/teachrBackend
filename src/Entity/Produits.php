@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProduitsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProduitsRepository::class)]
 class Produits
@@ -12,21 +13,27 @@ class Produits
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['produits:read', 'produits:write'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['produits:read', 'produits:write'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 1000, nullable: true)]
+    #[Groups(['produits:read', 'produits:write'])]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Groups(['produits:read', 'produits:write'])]
     private ?float $prix = null;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
+    #[Groups(['produits:read'])]
     private ?Categories $categorie = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['produits:read', 'produits:write'])]
     private ?\DateTimeInterface $dateCreation = null;
 
     public function getId(): ?int
