@@ -39,7 +39,7 @@ final class CategoriesController extends AbstractController
             $category = new Categories();
             $category->setNom($data['nom']);
             //$category->setNom($request->request->get('nom'));
-    
+            
             $errors = $validator->validate($category);
             if (count($errors) > 0) {
                 return $this->json(['errors' => $errors], 400);
